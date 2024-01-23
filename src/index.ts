@@ -1,8 +1,8 @@
 import * as dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import { authorRouter } from './author/author.router';
-import { bookRouter } from './book/book.router';
+import authorRouter from './routes/author.router';
+import bookRouter from './routes/book.router';
 
 dotenv.config();
 

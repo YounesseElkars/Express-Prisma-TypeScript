@@ -1,25 +1,19 @@
-import express from 'express';
-import type { Request, Response } from 'express';
-import * as BookService from './book.service';
 import HttpStatusCode from '../utils/HttpStatusCode';
+import * as BookService from '../services/book.service';
+import { Request, Response } from 'express';
 import { bookSchema } from '../types/zod';
 import { z } from 'zod';
 
-export const bookRouter = express.Router();
-
-// GET: List all the books
-bookRouter.get('/', async (request: Request, response: Response) => {
+export const listBooks = async (request: Request, response: Response) => {
   try {
     const books = await BookService.listBooks();
     return response.status(HttpStatusCode.OK).json(books);
   } catch (error: any) {
     return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error.message);
   }
-});
+};
 
-// GET : Get One book by ID
-// Params query : id
-bookRouter.get('/:id', async (request: Request, response: Response) => {
+export const getBook = async (request: Request, response: Response) => {
   try {
     const id = parseInt(request.params.id, 10);
     const book = await BookService.getBook(id);
@@ -33,11 +27,9 @@ bookRouter.get('/:id', async (request: Request, response: Response) => {
   } catch (error: any) {
     return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error.message);
   }
-});
+};
 
-// POST : Create one book
-// Params body : title , authorId , datePublished , isFiction
-bookRouter.post('/', async (request: Request, response: Response) => {
+export const createBook = async (request: Request, response: Response) => {
   try {
     const book = request.body;
     book.datePublished = new Date(book.datePublished);
@@ -55,11 +47,9 @@ bookRouter.post('/', async (request: Request, response: Response) => {
       return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error.message);
     }
   }
-});
+};
 
-// PUT : update one book
-// Params body : title , authorId , datePublished , isFiction
-bookRouter.put('/:id', async (request: Request, response: Response) => {
+export const updateBook = async (request: Request, response: Response) => {
   try {
     const id = parseInt(request.params.id, 10);
     // Check if the book exist
@@ -81,11 +71,9 @@ bookRouter.put('/:id', async (request: Request, response: Response) => {
       return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error.message);
     }
   }
-});
+};
 
-// DELETE : delete a book
-// Params query : id
-bookRouter.delete('/:id', async (request: Request, response: Response) => {
+export const deleteBook = async (request: Request, response: Response) => {
   try {
     const id = parseInt(request.params.id, 10);
     // Check if the book exist
@@ -101,4 +89,4 @@ bookRouter.delete('/:id', async (request: Request, response: Response) => {
   } catch (error: any) {
     return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error.message);
   }
-});
+};

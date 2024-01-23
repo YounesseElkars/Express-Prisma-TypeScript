@@ -1,25 +1,19 @@
-import express from 'express';
-import type { Request, Response } from 'express';
-import * as AuthorService from './author.service';
 import HttpStatusCode from '../utils/HttpStatusCode';
+import * as AuthorService from '../services/author.service';
+import { Request, Response } from 'express';
 import { authorSchema } from '../types/zod';
 import { z } from 'zod';
 
-export const authorRouter = express.Router();
-
-// GET : Get List of all authors
-authorRouter.get('/', async (request: Request, response: Response) => {
+export const listAuthors = async (request: Request, response: Response) => {
   try {
     const authors = await AuthorService.listAuthors();
     return response.status(HttpStatusCode.OK).json(authors);
   } catch (error: any) {
     return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error.message);
   }
-});
+};
 
-// GET : Get One author by ID
-// Params query : id
-authorRouter.get('/:id', async (request: Request, response: Response) => {
+export const getAuthor = async (request: Request, response: Response) => {
   try {
     const id = parseInt(request.params.id, 10);
     const author = await AuthorService.getAuthor(id);
@@ -33,11 +27,9 @@ authorRouter.get('/:id', async (request: Request, response: Response) => {
   } catch (error: any) {
     return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error.message);
   }
-});
+};
 
-// POST : Create one author
-// Params body : firstName , lastName
-authorRouter.post('/', async (request: Request, response: Response) => {
+export const createAuthor = async (request: Request, response: Response) => {
   try {
     const author = request.body;
     const data = authorSchema.parse(author);
@@ -52,12 +44,9 @@ authorRouter.post('/', async (request: Request, response: Response) => {
       return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error.message);
     }
   }
-});
+};
 
-// PUT : update an author
-// Params query : id
-// Params body : firstName , lastName
-authorRouter.put('/:id', async (request: Request, response: Response) => {
+export const updateAuthor = async (request: Request, response: Response) => {
   try {
     const id = parseInt(request.params.id, 10);
     // Check if the author exist
@@ -78,11 +67,9 @@ authorRouter.put('/:id', async (request: Request, response: Response) => {
       return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error.message);
     }
   }
-});
+};
 
-// DELETE : delete an author
-// Params query : id
-authorRouter.delete('/:id', async (request: Request, response: Response) => {
+export const deleteAuthor = async (request: Request, response: Response) => {
   try {
     const id = parseInt(request.params.id, 10);
     // Check if the author exist
@@ -98,4 +85,4 @@ authorRouter.delete('/:id', async (request: Request, response: Response) => {
   } catch (error: any) {
     return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(error.message);
   }
-});
+};
