@@ -1,17 +1,14 @@
-import { Author, Book } from '.prisma/client';
+import { TAuthorWrite, TBookWrite } from './../src/types/general';
 import { db } from '../src/utils/db.server';
 
-type TAuthor = Omit<Author, 'id' | 'createdAt' | 'updatedAt'>;
-type TBook = Omit<Book, 'id' | 'createdAt' | 'updatedAt' | 'authorId'>;
-
-function getAuthors(): Array<TAuthor> {
+function getAuthors(): Array<TAuthorWrite> {
   return [
     { firstName: 'john', lastName: 'doe' },
     { firstName: 'william', lastName: 'william' },
   ];
 }
 
-function getBooks(): Array<TBook> {
+function getBooks(): Array<Omit<TBookWrite, 'authorId'>> {
   return [
     {
       title: 'Book 1',
