@@ -1,5 +1,6 @@
 import HttpStatusCode from '../utils/HttpStatusCode';
 import * as BookService from '../services/book.service';
+import * as AuthorService from '../services/author.service';
 import { Request, Response } from 'express';
 import { bookSchema } from '../types/zod';
 import { z } from 'zod';
@@ -33,9 +34,11 @@ export const createBook = async (request: Request, response: Response) => {
   try {
     const book = request.body;
     book.datePublished = new Date(book.datePublished);
-
     const data = bookSchema.parse(book);
-
+    const existingAuthor = await AuthorService.getAuthor(data.authorId);
+    if (!existingAuthor) {
+      return response.status(HttpStatusCode.NOT_FOUND).json({ success: false, error: 'Author does not exist' });
+    }
     const newBook = await BookService.createBook(data);
     return response.status(HttpStatusCode.CREATED).json(newBook);
   } catch (error: any) {
@@ -60,6 +63,10 @@ export const updateBook = async (request: Request, response: Response) => {
     const book = request.body;
     book.datePublished = new Date(book.datePublished);
     const data = bookSchema.parse(book);
+    const existingAuthor = await AuthorService.getAuthor(data.authorId);
+    if (!existingAuthor) {
+      return response.status(HttpStatusCode.NOT_FOUND).json({ success: false, error: 'Author does not exist' });
+    }
     const updateBook = await BookService.updateBook(data, id);
     return response.status(HttpStatusCode.OK).json(updateBook);
   } catch (error: any) {
