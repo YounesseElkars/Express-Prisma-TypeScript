@@ -12,12 +12,17 @@ router.get('/:id', AuthorController.checkExistingAuthor, AuthorController.getAut
 
 // POST : Create one author
 // Params body : firstName , lastName
-router.post('/', AuthorController.createAuthor);
+router.post('/', AuthorController.validateAuthorData, AuthorController.createAuthor);
 
 // PUT : update an author
 // Params query : id
 // Params body : firstName , lastName
-router.put('/:id', AuthorController.checkExistingAuthor, AuthorController.updateAuthor);
+router.put(
+  '/:id',
+  AuthorController.validateAuthorData,
+  AuthorController.checkExistingAuthor,
+  AuthorController.updateAuthor
+);
 
 // DELETE : delete an author
 // Params query : id
