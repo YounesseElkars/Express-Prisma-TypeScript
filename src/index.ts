@@ -16,6 +16,8 @@ app.use(express.json());
 
 app.use('/api/authors', authorRouter);
 app.use('/api/books', bookRouter);
+// Error Handling Middleware
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Listening on PORT ${PORT}`);
