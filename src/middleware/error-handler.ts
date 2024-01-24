@@ -26,7 +26,7 @@ export const errorHandler = (error: any, request: Request, response: Response, n
         ? { error: 'Prisma Error occurred', details: error }
         : { error: 'Error occurred' };
 
-    return response.status(500).json(res);
+    return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json(res);
   }
 
   // Handle other types of errors
