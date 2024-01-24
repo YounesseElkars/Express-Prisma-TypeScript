@@ -12,12 +12,18 @@ router.get('/:id', BookController.checkExistingBook, BookController.getBook);
 
 // POST : Create one book
 // Params body : title , authorId , datePublished , isFiction
-router.post('/', BookController.checkExistingBookAuthor, BookController.createBook);
+router.post('/', BookController.validateBookData, BookController.checkExistingBookAuthor, BookController.createBook);
 
 // PUT : update one book
 // Params query : id
 // Params body : title , authorId , datePublished , isFiction
-router.put('/:id', BookController.checkExistingBook, BookController.checkExistingBookAuthor, BookController.updateBook);
+router.put(
+  '/:id',
+  BookController.validateBookData,
+  BookController.checkExistingBook,
+  BookController.checkExistingBookAuthor,
+  BookController.updateBook
+);
 
 // DELETE : delete a book
 // Params query : id
