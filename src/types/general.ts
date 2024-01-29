@@ -1,4 +1,4 @@
-import { Author, Book } from '@prisma/client';
+import { Author, Book, User } from '@prisma/client';
 
 // _____________  Author Types  _____________
 
@@ -13,3 +13,8 @@ export type TBookRead = Pick<Book, 'id' | 'title' | 'datePublished' | 'isFiction
   author: TAuthorRead;
 };
 export type TBookWrite = Omit<Book, 'id' | 'createdAt' | 'updatedAt'>;
+
+// _____________  User Types  _____________
+export type TUserRegisterWrite = Omit<User, 'createdAt' | 'updatedAt'>;
+export type TloginRead = Omit<User, 'createdAt' | 'updatedAt'>;
+export type TloginRequest = Omit<User, 'createdAt' | 'updatedAt' | 'password'>;
