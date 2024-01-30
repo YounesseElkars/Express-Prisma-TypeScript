@@ -1,7 +1,5 @@
 import { TuserUpdateSchema, userUpdateSchema } from '../types/zod';
-import HttpStatusCode from '../utils/HttpStatusCode';
 import { NextFunction, Request, Response } from 'express';
-import bcrypt from 'bcryptjs';
 import * as UserService from '../services/user.service';
 import { sendSuccessResponse } from '../utils/responseHandler';
 import { hashPassword } from '../utils/bcryptHandler';

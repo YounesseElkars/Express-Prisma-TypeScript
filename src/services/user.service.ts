@@ -1,4 +1,4 @@
-import { TuserUpdateSchema, userUpdateSchema } from './../types/zod';
+import { TuserUpdateSchema } from './../types/zod';
 import { db } from '../utils/db.server';
 import { TloginRead, TloginRequest } from '../types/general';
 

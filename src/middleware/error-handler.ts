@@ -1,7 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { Request, Response, NextFunction } from 'express';
-import { ZodError, z } from 'zod';
-import HttpStatusCode from '../utils/HttpStatusCode';
+import { z } from 'zod';
 import { JsonWebTokenError } from 'jsonwebtoken';
 import { sendBadRequestResponse, sendErrorResponse, sendValidationError } from '../utils/responseHandler';
 

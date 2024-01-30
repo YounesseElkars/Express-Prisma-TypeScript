@@ -1,7 +1,5 @@
-import jwt from 'jsonwebtoken';
 import * as UserService from '../services/user.service';
 import { NextFunction, Request, Response } from 'express';
-import HttpStatusCode from '../utils/HttpStatusCode';
 import { sendBadRequestResponse } from '../utils/responseHandler';
 import { verifyToken } from '../utils/jwtHandler';
 
