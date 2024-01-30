@@ -1,5 +1,6 @@
 import express from 'express';
 import * as AuthorController from '../controllers/author.controller';
+import { protectAuth } from '../middleware/auth-middleware';
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.get('/:id', AuthorController.checkExistingAuthor, AuthorController.getAut
 // Acess : Private
 // POST : Create one author
 // Params body : firstName , lastName
-router.post('/', AuthorController.validateAuthorData, AuthorController.createAuthor);
+router.post('/', protectAuth, AuthorController.validateAuthorData, AuthorController.createAuthor);
 
 // Acess : Private
 // PUT : update an author
@@ -23,6 +24,7 @@ router.post('/', AuthorController.validateAuthorData, AuthorController.createAut
 // Params body : firstName , lastName
 router.put(
   '/:id',
+  protectAuth,
   AuthorController.validateAuthorData,
   AuthorController.checkExistingAuthor,
   AuthorController.updateAuthor
@@ -31,6 +33,6 @@ router.put(
 // Acess : Private
 // DELETE : delete an author
 // Params query : id
-router.delete('/:id', AuthorController.checkExistingAuthor, AuthorController.deleteAuthor);
+router.delete('/:id', protectAuth, AuthorController.checkExistingAuthor, AuthorController.deleteAuthor);
 
 export default router;

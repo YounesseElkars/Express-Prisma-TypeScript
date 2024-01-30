@@ -8,9 +8,9 @@ const router = express.Router();
 // Params body : username , password
 router.post('/login', AuthController.validateLoginData, AuthController.login);
 
-// Acess : public
+// Acess : Private
 // POST : logout
 
-router.post('/logout', AuthController.logout);
+router.post('/logout', protectAuth, AuthController.logout);
 
 export default router;
