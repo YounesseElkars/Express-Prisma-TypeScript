@@ -1,10 +1,9 @@
-import HttpStatusCode from '../utils/HttpStatusCode';
 import * as UserService from '../services/user.service';
 import { NextFunction, Request, Response } from 'express';
 import { TUserSchema, userSchema } from '../types/zod';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import { sendSuccessNoDataResponse, sendSuccessResponse, sendUnauthorizedResponse } from '../utils/responseHandler';
+import { comparePasswords } from '../utils/bcryptHandler';
+import { generateToken } from '../utils/jwtHandler';
 
 export const login = async (request: Request, response: Response, next: NextFunction) => {
   try {
@@ -15,10 +14,10 @@ export const login = async (request: Request, response: Response, next: NextFunc
       return sendUnauthorizedResponse(response, 'Credentials Error');
     }
 
-    const passwordCompare = await bcrypt.compare(userRequest.password, user.password);
+    const passwordCompare = await comparePasswords(userRequest.password, user.password);
 
     if (passwordCompare) {
-      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, { expiresIn: '30d' });
+      const token = generateToken({ id: user.id }, '30d');
 
       response.cookie('jwt', token, {
         httpOnly: true,

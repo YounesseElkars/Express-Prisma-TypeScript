@@ -4,6 +4,7 @@ import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import * as UserService from '../services/user.service';
 import { sendSuccessResponse } from '../utils/responseHandler';
+import { hashPassword } from '../utils/bcryptHandler';
 
 export const getUserProfile = async (request: Request, response: Response, next: NextFunction) => {
   try {
@@ -27,8 +28,7 @@ export const updateUserProfile = async (request: Request, response: Response, ne
     }
     const data: TuserUpdateSchema = request.body;
     const password = data.password;
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await hashPassword(password);
     const dataWithHash = { ...data, password: hashedPassword };
 
     const user = await UserService.updateUserByID(userId, dataWithHash);
