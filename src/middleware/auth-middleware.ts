@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import * as UserService from '../services/user.service';
 import { NextFunction, Request, Response } from 'express';
 import HttpStatusCode from '../utils/HttpStatusCode';
+import { sendBadRequestResponse } from '../utils/responseHandler';
 
 const protectAuth = async (request: Request, response: Response, next: NextFunction) => {
   const allCookies = request.cookies;
@@ -15,13 +16,10 @@ const protectAuth = async (request: Request, response: Response, next: NextFunct
       }
       next();
     } catch (error: any) {
-      console.log(JSON.stringify(error));
-      console.log(typeof error);
-
       next(error);
     }
   } else {
-    return response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({ error: 'Unauthorized - you need to login' });
+    return sendBadRequestResponse(response, 'Unauthorized - you need to login');
   }
 };
 
