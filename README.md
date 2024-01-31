@@ -6,25 +6,35 @@
 
 ## Description:
 
-A RESTFull API With Express , TypeScript and Prisma that handles authentication and CRUD Operations
+An Express-based RESTful API with TypeScript and Prisma , managing both authentication and CRUD operations.
 
 ## Features
 
-- MVC Pattern
-- Prima as ORM
-- Authentication Routes (/Login , /Logout)
-- JWT (HTTP-Only)
-- Protected Routes
-- Validation With Zod as middleware
-- Error Handler middleware :
-  - Prisma Errors
-  - Zod Errors
-  - JWT Parsing Errors
-  - Route Not Found Error
-- CRUD Operations ( Author , Books resources)
-- Custom Handler for Response
-- Custom HTTP Codes enum list
-- CORS Middleware with custom config object
+- [x] MVC Pattern
+- [x] Prima as ORM
+- [x] Authentication Routes (/Login , /Logout)
+- [x] JWT (HTTP-Only)
+- [x] Protected Routes
+- [x] Validation With Zod as middleware
+- [x] Error Handler middleware :
+  - [x] Prisma Errors
+  - [x] Zod Errors
+  - [x] JWT Parsing Errors
+  - [x] Route Not Found Error
+- [x] CRUD Operations ( Author , Books resources)
+- [x] Custom Handler for Response
+- [x] Custom HTTP Codes enum list
+- [x] CORS Middleware with custom config object
+
+## Icoming Features
+
+- [ ] API Documentation Using Swagger
+
+- [ ] Sanitize queries against SQL Injection and XSS
+
+- [ ] Middlewrae logger
+
+- [ ] Testing
 
 ## Getting Started
 
