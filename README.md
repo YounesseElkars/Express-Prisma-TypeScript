@@ -12,7 +12,6 @@ An Express-based RESTful API with TypeScript and Prisma , managing both authenti
 
 - [x] MVC Pattern
 - [x] Prima as ORM
-- [x] Seed Script
 - [x] Authentication Routes (/Login , /Logout)
 - [x] JWT (HTTP-Only)
 - [x] Protected Routes
